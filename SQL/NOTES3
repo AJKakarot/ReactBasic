@@ -1,0 +1,81 @@
+; 📌 1. MongoDB vs SQL (Core Difference)
+; Feature	MongoDB	SQL
+; Type	NoSQL	Relational
+; Data	JSON (document)	Tables (rows)
+; Schema	Flexible	Fixed
+; Query	JS methods	SQL language
+; 🔥 One Line
+
+; MongoDB = flexible, SQL = structured
+
+; 📌 2. Data Storage Difference
+; 🔹 MongoDB
+; { name: "Ajeet", age: 22 }
+; 🔹 SQL
+; id | name | age
+; 1  | Ajeet | 22
+; 📌 3. Relation Difference (Important 🔥)
+; MongoDB	SQL
+; ObjectId (ref)	Foreign Key
+; populate()	JOIN
+; 🔹 MongoDB
+; userId: ObjectId("123")
+; 🔹 SQL
+; user_id REFERENCES users(id)
+; 📌 4. Data Fetch Difference
+; 🔹 MongoDB
+; Post.find().populate("userId")
+; 🔹 SQL
+; SELECT * FROM posts
+; JOIN users ON posts.user_id = users.id;
+; 📌 5. Model Difference
+; MongoDB Model	SQL Model
+; Schema define	Query functions
+; Built-in methods	Manual SQL
+; Example: User.find()	SELECT * FROM users
+; 📌 6. Controller Difference
+; MongoDB	SQL
+; Simple calls	Query handle
+; Direct object	rows use
+; Less code	More control
+; 🔹 Mongo Controller
+; const users = await User.find();
+; 🔹 SQL Controller
+; const users = await pool.query("SELECT * FROM users");
+; 📌 7. Insert Difference
+; MongoDB
+; User.create(data);
+; SQL
+; INSERT INTO users ...
+; 📌 8. Performance Thinking
+; Case	MongoDB	SQL
+; Flexible data	✅	❌
+; Complex relations	❌	✅
+; Fast nested read	✅	❌
+; 📌 9. Token Flow (Same for both)
+; Login → token → store → send → verify
+; 📌 10. Key Mapping (Super Important 🔥)
+; MongoDB	SQL
+; Collection	Table
+; Document	Row
+; ObjectId	Primary Key
+; ref	Foreign Key
+; populate()	JOIN
+; 🧠 Interview Golden Lines
+; "MongoDB is schema-less, SQL is schema-based"
+; "MongoDB uses documents, SQL uses tables"
+; "populate is similar to JOIN"
+; "SQL ensures data integrity using constraints"
+; ⚡ Final 1 Minute Revision
+
+; 👉 Mongo → flexible + fast dev
+; 👉 SQL → structured + safe
+; 👉 populate = JOIN
+; 👉 Model ≠ Controller
+
+; 🚀 Pro Line (Impress interviewer)
+
+; "Choice between MongoDB and SQL depends on use case, scalability, and data relationships."
+
+; Agar tu next level 🔥
+; main tujhe real interview Q&A + tricky cross questions (jo panel puchta hai) bhi kara deta hoon 💪

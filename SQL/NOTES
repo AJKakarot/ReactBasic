@@ -1,0 +1,194 @@
+// // ================== PROJECT STRUCTURE ==================
+// // server.js
+// // config/db.js
+// // models/userModel.js
+// // models/postModel.js
+// // routes/authRoutes.js
+// // routes/postRoutes.js
+// // controllers/authController.js
+// // controllers/postController.js
+// // middleware/authMiddleware.js
+// // queries.sql
+// // .env
+
+// // ================== server.js ==================
+// const express = require("express");
+// require("dotenv").config();
+
+// const authRoutes = require("./routes/authRoutes");
+// const postRoutes = require("./routes/postRoutes");
+
+// const app = express();
+// app.use(express.json());
+
+// app.use("/api/auth", authRoutes);
+// app.use("/api/posts", postRoutes);
+
+// app.listen(5000, () => console.log("Server running on port 5000"));
+
+// // ================== config/db.js ==================
+// const { Pool } = require("pg");
+
+// const pool = new Pool({
+//   connectionString: process.env.DB_URL
+// });
+
+// module.exports = pool;
+
+// // ================== queries.sql ==================
+// /*
+// CREATE TABLE users (
+//   id SERIAL PRIMARY KEY,
+//   name TEXT,
+//   email TEXT UNIQUE,
+//   password TEXT
+// );
+
+// CREATE TABLE posts (
+//   id SERIAL PRIMARY KEY,
+//   title TEXT,
+//   content TEXT,
+//   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
+// );
+// */
+
+// // ================== models/userModel.js ==================
+// const pool = require("../config/db");
+
+// exports.createUser = (name, email, password) => {
+//   return pool.query(
+//     "INSERT INTO users (name, email, password) VALUES ($1,$2,$3) RETURNING *",
+//     [name, email, password]
+//   );
+// };
+
+// exports.findUserByEmail = (email) => {
+//   return pool.query("SELECT * FROM users WHERE email=$1", [email]);
+// };
+
+// // ================== models/postModel.js ==================
+// const pool = require("../config/db");
+
+// exports.createPost = (title, content, userId) => {
+//   return pool.query(
+//     "INSERT INTO posts (title, content, user_id) VALUES ($1,$2,$3) RETURNING *",
+//     [title, content, userId]
+//   );
+// };
+
+// exports.getPosts = () => {
+//   return pool.query(
+//     `SELECT posts.*, users.name, users.email
+//      FROM posts
+//      JOIN users ON posts.user_id = users.id`
+//   );
+// };
+
+// // ================== controllers/authController.js ==================
+// const bcrypt = require("bcryptjs");
+// const jwt = require("jsonwebtoken");
+// const { createUser, findUserByEmail } = require("../models/userModel");
+
+// exports.signup = async (req, res) => {
+//   try {
+//     const { name, email, password } = req.body;
+//     const hashed = await bcrypt.hash(password, 10);
+
+//     const user = await createUser(name, email, hashed);
+//     res.json(user.rows[0]);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
+
+// exports.login = async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+//     const user = await findUserByEmail(email);
+
+//     if (user.rows.length === 0)
+//       return res.status(404).json({ msg: "User not found" });
+
+//     const valid = await bcrypt.compare(password, user.rows[0].password);
+//     if (!valid)
+//       return res.status(400).json({ msg: "Invalid credentials" });
+
+//     const token = jwt.sign({ id: user.rows[0].id }, process.env.JWT_SECRET);
+//     res.json({ token });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
+
+// // ================== controllers/postController.js ==================
+// const { createPost, getPosts } = require("../models/postModel");
+
+// exports.createPost = async (req, res) => {
+//   try {
+//     const post = await createPost(
+//       req.body.title,
+//       req.body.content,
+//       req.user.id
+//     );
+//     res.json(post.rows[0]);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
+
+// exports.getPosts = async (req, res) => {
+//   try {
+//     const posts = await getPosts();
+//     res.json(posts.rows);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
+
+// // ================== middleware/authMiddleware.js ==================
+// const jwt = require("jsonwebtoken");
+
+// module.exports = (req, res, next) => {
+//   const token = req.headers.authorization;
+//   if (!token) return res.status(401).json({ msg: "No token" });
+
+//   try {
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//     req.user = decoded;
+//     next();
+//   } catch {
+//     res.status(401).json({ msg: "Invalid token" });
+//   }
+// };
+
+// // ================== routes/authRoutes.js ==================
+// const express = require("express");
+// const { signup, login } = require("../controllers/authController");
+
+// const router = express.Router();
+// router.post("/signup", signup);
+// router.post("/login", login);
+
+// module.exports = router;
+
+// // ================== routes/postRoutes.js ==================
+// const express = require("express");
+// const { createPost, getPosts } = require("../controllers/postController");
+// const auth = require("../middleware/authMiddleware");
+
+// const router = express.Router();
+// router.post("/", auth, createPost);
+// router.get("/", getPosts);
+
+// module.exports = router;
+
+// // ================== .env ==================
+// // DB_URL=postgres://user:password@localhost:5432/testdb
+// // JWT_SECRET=secret123
+
+// // ================== INSTALL ==================
+// // npm init -y
+// // npm install express pg dotenv bcryptjs jsonwebtoken
+
+// // ================== RUN ==================
+// // node server.js

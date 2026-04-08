@@ -1,0 +1,98 @@
+; 📌 1. Project Structure (Important 🔥)
+; server.js → entry point  
+; config/db.js → database connection  
+; models → DB queries  
+; controllers → logic  
+; routes → API endpoints  
+; middleware → auth check  
+
+; 📌 2. FLOW (Sabse important)
+; Route → Controller → Model → Database → Response
+
+; 👉 Example:
+
+; /signup → controller → model → DB → response
+; 📌 3. MODEL (SQL)
+
+; 👉 Model = sirf database query
+
+; exports.createUser = (name, email, password) => {
+;   return pool.query(
+;     "INSERT INTO users (name, email, password) VALUES ($1,$2,$3) RETURNING *",
+;     [name, email, password]
+;   );
+; };
+; 🧠 Notes:
+; $1, $2 → placeholders (SQL injection safe)
+; RETURNING * → inserted data return
+; No req/res ❌
+; 📌 4. CONTROLLER
+
+; 👉 Controller = logic + request + response
+
+; 🔹 Signup
+; const user = await createUser(name, email, hashed);
+; res.json(user.rows[0]);
+; 🧠 Notes:
+; password hash (bcrypt)
+; model call
+; response send
+
+; 🔹 Login
+; const user = await findUserByEmail(email);
+; const token = jwt.sign({ id: user.rows[0].id }, secret);
+; 🧠 Notes:
+; user check
+; password compare
+; JWT token generate
+
+; 📌 5. AUTH (Middleware)
+
+; const token = req.headers.authorization;
+; jwt.verify(token, secret);
+; 🧠 Notes:
+; token header se aata hai
+; verify karke req.user me store
+; 📌 6. POST MODEL (Relation 🔥)
+; posts.user_id REFERENCES users(id)
+
+; 👉 One-to-Many:
+
+; 1 user → many posts
+; 📌 7. JOIN (SQL ka populate 🔥)
+; SELECT posts.*, users.name
+; FROM posts
+; JOIN users ON posts.user_id = users.id;
+; 🧠 Notes:
+; JOIN = combine data
+; MongoDB me same = populate()
+
+; 📌 8. ROUTES
+
+; router.post("/signup", signup);
+; router.post("/login", login);
+; router.post("/", auth, createPost);
+; router.get("/", getPosts);
+; 🧠 Notes:
+; route → controller connect
+; middleware protect route
+
+; 📌 9. TOKEN FLOW
+; Login → token generate  
+; Frontend → store (localStorage/cookie)  
+; Request → header me send  
+; Backend → verify
+
+; 📌 10. KEY DIFFERENCE (Mongo vs SQL)
+; MongoDB	SQL
+; Schema in code	Schema in DB
+; .find()	SELECT
+; populate()	JOIN
+; Flexible	Structured
+
+; 🧠 Interview Golden Lines
+; "Model handles DB queries"
+; "Controller handles request/response"
+; "JWT is used for authentication"
+; "JOIN is used to fetch related data"
+; "Parameterized queries prevent SQL injection"

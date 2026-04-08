@@ -1,0 +1,101 @@
+// 2. find(), findOne(), findById() – Difference
+// 🔹 1. find()
+// Multiple documents return karta hai (array)
+// const users = await User.find({ age: 20 });
+
+// 👉 Output: [{}, {}, {}]
+
+
+// 2. findOne()
+// Sirf first matching document
+// const user = await User.findOne({ email: "test@gmail.com" });
+
+// 👉 Output: {}
+
+// 🔹 3. findById()
+// Direct _id se find karta hai (fast & optimized)
+// const user = await User.findById("64ab123...");
+
+// 👉 Output: {}
+
+
+
+//---------------------
+
+// ✅ 4. PostgreSQL Queries (Basic)
+
+// 🔹 SELECT
+// SELECT * FROM users;
+// SELECT name, email FROM users WHERE age > 20;
+
+// 🔹 INSERT
+// INSERT INTO users (name, email, age)
+// VALUES ('Ajeet', 'ajeet@gmail.com', 22);
+
+// 🔹 UPDATE
+// UPDATE users
+// SET age = 23
+// WHERE email = 'ajeet@gmail.com';
+
+// 🔹 DELETE
+// DELETE FROM users
+// WHERE email = 'ajeet@gmail.com';
+
+
+// ✅ 5. Indexing – Kyun use karte hain?
+// 🔥 Problem:
+
+// Without index → DB full scan karta hai (slow 😴)
+
+// 🔥 Solution:
+
+// Index → fast search (like book index 📚)
+
+// 🔹 Example (MongoDB)
+// userSchema.index({ email: 1 });
+
+// 🔹 Example (SQL)
+// CREATE INDEX idx_email ON users(email);
+
+// 💡 Interview Line:
+
+// "Index improves read performance but slightly slows down writes."
+
+// ✅ 6. One-to-Many Relationship (MongoDB)
+
+// 🎯 Example:
+
+// 1 User → many Posts
+
+// 🔹 Option 1: Referencing (Recommended)
+
+// User Schema
+// {
+//   name: "Ajeet"
+// }
+
+// Post Schema
+// {
+//   title: "Post 1",
+//   userId: ObjectId("user_id")
+// }
+
+// 🔹 Populate Example
+// Post.find().populate("userId");
+
+// 🔹 Option 2: Embedding
+// {
+//   name: "Ajeet",
+//   posts: [
+//     { title: "Post 1" },
+//     { title: "Post 2" }
+//   ]
+// }
+// 🔥 कब कौन use करें?
+
+// Case	Use
+// Large data-> Referencing
+// Small + tightly related ->	Embedding
+// 💡 Interview Line:
+
+// "Use referencing for scalability, embedding for performance."
