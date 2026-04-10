@@ -1,0 +1,113 @@
+🧠 🧩 Overall System (Big Picture)
+
+👉 Ye app Next.js pe bana hai
+👉 Isme:
+
+Frontend (pages)
+Backend (API routes)
+👉 dono ek hi project me hain 😎
+🔥 🪜 Step-by-Step Flow
+🟢 1. User Home Page open karta hai
+
+👉 URL:
+
+http://localhost:3000/
+
+👉 Kya hota hai?
+
+getServerSideProps()
+
+👉 Ye:
+
+Server pe run hota hai
+/api/todos call karta hai
+🔵 2. Backend API call hoti hai
+
+👉 File:
+
+/pages/api/todos.js
+
+👉 Ye karta hai:
+
+res.json(todos);
+
+👉 Matlab:
+
+Fake DB se data nikala
+Client ko bhej diya
+🟡 3. Server HTML ready karta hai
+
+👉 getServerSideProps:
+
+Data le aata hai
+Page ko ready karta hai
+
+👉 Browser ko milta hai:
+
+Todo List (already filled)
+
+👉 Isliye fast + SEO friendly 🔥
+
+🟣 4. User kisi Todo pe click karta hai
+
+👉 next/link use hua tha:
+
+<Link href={`/todos/${id}`} />
+
+👉 Navigation hota hai:
+
+/todos/1
+
+👉 Page reload nahi hota ⚡
+
+🔴 5. Dynamic Route open hota hai
+
+👉 File:
+
+/pages/todos/[id].js
+
+👉 Yaha:
+
+context.params.id
+
+👉 Example:
+
+id = 1
+🟠 6. Fir se server call hoti hai
+
+👉 getServerSideProps:
+
+API se data fetch
+Specific todo nikalta hai
+
+👉 Page ready:
+
+Todo Detail Page
+🟤 7. User "Back" button dabata hai
+router.push("/")
+
+👉 next/router:
+
+Programmatic navigation
+Wapas home page
+🟢 8. User "Add Todo" karta hai
+
+👉 Page:
+
+/add
+
+👉 User input deta hai
+
+🔵 9. API call (POST)
+fetch("/api/todos", { method: "POST" })
+
+👉 Backend:
+
+todos.push(newTodo);
+
+👉 Data save ho gaya ✅
+
+🟣 10. Redirect
+router.push("/")
+
+👉 Wapas home page → updated list

@@ -1,0 +1,132 @@
+🚀 🔥 FULL FLOW (START → END)
+🟢 1. User App open karta hai
+
+👉 URL:
+
+http://localhost:3000/
+🔵 2. Server pe getServerSideProps run hota hai
+export async function getServerSideProps() {
+  const res = await fetch("http://localhost:3000/api/todos");
+  const todos = await res.json();
+
+  return { props: { todos } };
+}
+
+👉 Kya hua:
+
+Server API call karta hai
+Todos data fetch karta hai
+🟣 3. Backend API hit hoti hai
+
+👉 File:
+
+/pages/api/todos.js
+
+👉 Ye return karta hai:
+
+res.json(todos);
+
+👉 Matlab:
+
+Fake DB se data → server ko
+🟡 4. Server page ready karta hai
+
+👉 HTML + data combine hota hai
+
+👉 Browser ko milta hai:
+
+Todo List (already filled)
+
+👉 Fast + SEO 🔥
+
+🟠 5. User Todo pe click karta hai
+<Link href="/todos/1">Todo 1</Link>
+
+👉 next/link:
+
+Page reload nahi ❌
+Fast navigation ⚡
+🔴 6. Route change hota hai
+/todos/1
+
+👉 Next.js open karta hai:
+
+/pages/todos/[id].js
+🟤 7. Fir se SSR run hota hai
+getServerSideProps(context)
+
+👉 Yaha:
+
+context.params.id = 1
+⚫ 8. Server fir API call karta hai
+
+👉 Todo list fetch karta hai
+👉 id=1 wala todo nikalta hai
+
+🟢 9. Detail Page render hota hai
+
+👉 Browser ko milta hai:
+
+Todo Detail Page
+
+👉 Output:
+
+Title: Learn Next.js
+Status: Pending
+🔵 10. User "Back" button click karta hai
+router.push("/")
+
+👉 next/router:
+
+Programmatic navigation
+🟣 11. User "Add Todo" page pe jata hai
+/add
+🟡 12. User input deta hai
+
+👉 Form fill karta hai
+
+🟠 13. POST API call hoti hai
+fetch("/api/todos", {
+  method: "POST",
+  body: JSON.stringify({ title })
+});
+
+👉 Backend:
+
+todos.push(newTodo);
+
+👉 Data save ✅
+
+🔴 14. Redirect hota hai
+router.push("/")
+⚫ 15. Fir se Home SSR run hota hai
+
+👉 Updated todos fetch hote hain
+
+👉 New todo dikhta hai ✅
+
+🔥 🔄 FULL FLOW (ONE LINE)
+
+👉
+User → Page → SSR → API → Data → UI → Click → SSR → API → UI → Action → API → Update → SSR → UI
+
+🧠 SUPER SIMPLE VERSION
+
+👉
+
+Page open → server data laata hai
+Click → new page → server data laata hai
+Add → backend save karta hai
+Redirect → updated data dikhata hai
+🎯 INTERVIEW ANSWER (ULTIMATE 💯)
+
+👉
+"In this flow, Next.js uses getServerSideProps to fetch data on each request, API routes act as the backend, next/link handles navigation without reload, dynamic routes load specific data, and next/router manages redirects after user actions like adding a todo."
+
+🔥 FINAL UNDERSTANDING
+
+👉
+
+Frontend = UI + navigation
+Backend = API + data
+SSR = har request pe fresh data

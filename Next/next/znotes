@@ -1,0 +1,29 @@
+App Router me layout.js ek reusable wrapper hota hai jo automatically 
+sab pages pe apply hota hai. 
+Isse code duplication kam hota hai aur nested layouts possible hote hain.
+Ye modern approach hai aur server components support karta hai.
+
+APP ROUTER
+/app
+  layout.js
+  page.js
+  about/
+    page.js
+
+---------------------------------
+
+    "Pages Router me har file ek route hota hai. Layout reuse manually karna padta hai, jaise navbar ko har page me import karna. Ye simple hai but scalable apps me repetitive code ho jata hai."
+
+
+
+/pages
+  index.js
+  about.js
+/components
+  Navbar.js
+------------------------
+
+  "Yes, in App Router we can create nested layouts. A global layout applies to all pages, and we can define route-specific layouts like for the About section. These layouts wrap each other, improving code reuse and structure.
+
+  -------------------
+  "In Next.js App Router, components are server components by default. To use React hooks like useState, we need to mark the component as a client component using 'use client'."

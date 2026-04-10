@@ -1,0 +1,73 @@
+🔹 1. Signup Flow
+
+🧾 Step-by-step
+
+1. User form fill karta hai
+Email + Password
+
+2. Button click → fetch call
+fetch("/api/auth/signup", {...})
+
+3. API hit hota hai
+/app/api/auth/signup/route.js
+
+4. Backend kya karta hai?
+Data read (req.json())
+User save karta hai
+
+5. Response aata hai
+User created
+
+🎤 Interview Line
+
+"Signup involves sending user data from client to an API route,
+ where it is processed and stored in the database."
+
+
+ --------------
+ "Todo data is fetched on page load and new todos are added via POST requests to the API."
+
+
+ ---------------
+ "In traditional React applications, we build frontend and backend separately, usually using Express. 
+ In Next.js, both frontend and backend can be handled in a single project using API routes, 
+ making development simpler and more integrated
+
+ --------------
+ "In React, the application runs entirely on the client side. 
+ State is stored in memory using hooks like useState. When the page reloads,
+  the application reinitializes and the state is reset,
+  so data is lost unless we fetch it again from an external backend."
+
+  React →
+useState (memory) →
+Reload →
+Memory clear →
+Data lost ❌
+-------------------------------
+
+"In Next.js, we can use built-in API routes to
+ create a backend within the same project.
+ On page load, we fetch data from these APIs, 
+so even after reload, data appears to persist."
+
+Next.js →
+API route →
+fetch →
+Server se data →
+UI me aa gaya ✅
+-----------------------
+3. WHY difference (sabse important)
+
+👉 Ye line maaro (interviewer impress):
+
+"The difference is not in useState, but in data source. 
+React relies on local state, while Next.js allows fetching data from a server."
+
+⚔️ Direct Comparison (bolne ke liye)
+
+👉 Tum bol sakte ho:
+
+"In React, we usually separate frontend and backend, so without an API, 
+state is temporary. In Next.js, backend and frontend are integrated,
+ making it easier to fetch and persist data."
