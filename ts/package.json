@@ -1,0 +1,11 @@
+{
+  "name": "todo-auth-fullstack",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n backend,client -c blue,green \"npm run dev --prefix backend\" \"npm run dev --prefix client\"",
+    "install:all": "npm install --prefix backend && npm install --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
