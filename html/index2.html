@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SPA with History API</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 10px;
+      cursor: pointer;
+      color: blue;
+      text-decoration: underline;
+    }
+
+    #content {
+      margin-top: 30px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Mini SPA (Without React)</h1>
+
+  <nav>
+    <a onclick="navigate('/')">Home</a>
+    <a onclick="navigate('/about')">About</a>
+    <a onclick="navigate('/contact')">Contact</a>
+  </nav>
+
+  <div id="content"></div>
+
+  <script>
+    const content = document.getElementById("content");
+
+    // 🔥 Render function
+    function render(path) {
+      if (path === "/") {
+        content.innerHTML = "<h2>Home Page</h2>";
+      } 
+      else if (path === "/about") {
+        content.innerHTML = "<h2>About Page</h2>";
+      } 
+      else if (path === "/contact") {
+        content.innerHTML = "<h2>Contact Page</h2>";
+      } 
+      else {
+        content.innerHTML = "<h2>404 Not Found</h2>";
+      }
+    }
+
+    // 🔥 Navigation function
+    function navigate(path) {
+      history.pushState({}, "", path); // URL change (no reload)
+      render(path);                    // UI update
+    }
+
+    // 🔥 Back/Forward button handle
+    window.addEventListener("popstate", () => {
+      render(location.pathname);
+    });
+
+    // 🔥 Initial load
+    render(location.pathname);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation Example</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        ul {
+            margin-top: 20px;
+            list-style-type: none;
+        }
+
+        li {
+            background: #f2f2f2;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>DOM Manipulation Demo</h1>
+
+    <button id="addBtn">Add Item</button>
+    <ul id="list"></ul>
+
+    <script>
+        // Step 1: Select elements
+        let btn = document.querySelector("#addBtn");
+        let list = document.querySelector("#list");
+
+        let count = 1;
+
+        // Step 2: Add event
+        btn.addEventListener("click", function() {
+
+            // Step 3: Create element
+            let li = document.createElement("li");
+
+            // Step 4: Add content
+            li.innerText = "Item " + count;
+            count++;
+
+            // Step 5: Append to DOM
+            list.appendChild(li);
+        });
+    </script>
+
+</body>
+</html>
