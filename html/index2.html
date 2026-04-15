@@ -55,9 +55,14 @@
       }
     }
 
-    // 🔥 Navigation function
+    //  Navigation function
     function navigate(path) {
-      history.pushState({}, "", path); // URL change (no reload)
+ <!--Page reload nahi hoga
+React Router internally yehi use karta hai
+Without reload page switching -->
+      history.pushState({}, "", path); 
+//-------------
+      // URL change (no reload)
       render(path);                    // UI update
     }
 
@@ -67,7 +72,7 @@
     });
 
     // 🔥 Initial load
-    render(location.pathname);
+    render("/");
   </script>
 
 </body>
